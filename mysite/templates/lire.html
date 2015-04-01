@@ -1,0 +1,34 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}Projet Cedric & Pierre{% endblock %}
+
+{% block body_class %}home{% endblock %}
+
+{% block body_base %}
+    <section class="jumbotron">
+        <div class="container">
+            {% include "_messages.html" %}
+            <h1>{% blocktrans %}Bienvenue sur le Cedric&Pierre<br>big project!{% endblocktrans %}</h1>
+            <p>
+                {% blocktrans %}
+                Voici une première version du site. Uploader sur Github. Il faut bien sûr trouver des trucs à marquer ici.
+                {% endblocktrans %}
+            </p>
+            {% if not user.is_authenticated %}
+            {% url "account_login" as login_url %}
+            {% url "account_signup" as signup_url %}
+            <p>{% blocktrans %}Tu peux <a href="{{ login_url }}" class="btn btn-default">Log In</a> ou <a href="{{ signup_url }}" class="btn btn-primary">Sign Up</a> pour essayer le site.{% endblocktrans %}</p>
+            {% endif %}
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <h2 class="text-center">{% blocktrans %}Article à lire!{% endblocktrans %}</h2>
+ <h1> {{ article.titre }} <span class="small"> dans {{ article.categorie.nom }} </span> </h1>
+<p class="infos"> Rédigé par {{ article.auteur }}, le {{ article.date|date:"DATE_FORMAT" }} </p>
+<div class="contenu"> {{ article.contenu|linebreaks }}</div>
+
+    </section>
+{% endblock %}
