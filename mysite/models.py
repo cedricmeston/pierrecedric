@@ -4,10 +4,13 @@ from django.contrib.auth.models import User
 
 class Profil(models.Model):
     user = models.OneToOneField(User)
-    site_web = models.URLField(blank=True)
+    adresse = models.TextField()
+    ville = models.TextField(max_length=100)
+    code_postal = models.FloatField()
     avatar = models.ImageField(null=True, blank=True, upload_to="avatars/")
-    signature = models.TextField(blank=True)
-    inscrit_newsletter = models.BooleanField(default=False)
+    date_naissance = models.DateField()
+    nom = models.TextField()
+    prenom = models.TextField()
 
     def __str__(self):
         return self.user
@@ -19,11 +22,25 @@ class Article(models.Model):
     contenu=models.TextField(null=True)
     date= models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Date de parution")
     categorie=models.ForeignKey('Categorie')
-
-
+    prix=models.OneToOneField('Prix')
 
     def __str__(self):
         return self.titre
+
+class Prix(models.Model):
+    type=models.ForeignKey('Type_de_prix')
+    valeur=models.FloatField()
+
+class Type_de_prix(models.Model):
+    nom=models.CharField(max_length=100)
+
+class Reponse(models.Model):
+    article=models.ForeignKey('Article')
+    acheteur=models.ForeignKey('Profil')
+    prix_acheteur=models.FloatField()
+    type=models.ForeignKey('Type_de_prix')
+    commentaire=models.CharField(max_length=250)
+    date=models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Date d'offre")
 
 
 class Categorie(models.Model):
