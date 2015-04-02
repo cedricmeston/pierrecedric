@@ -1,15 +1,29 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, render_to_response, RequestContext
 from models import Article, Categorie
 from forms import ContactForm, ArticleForm, ConnexionForm
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
-
+from snipped import get_query
 
 def accueil(request):
     articles = Article.objects.all()
     categories = Categorie.objects.all()
     return render(request, 'accueil.html', {'derniers_articles': articles, 'liste_categories': categories})
+
+def search(request):
+    query_string = ''
+    found_entries = None
+    if ('q' in request.GET) and request.GET['q'].strip():
+        query_string = request.GET['q']
+
+        entry_query = get_query(query_string, ['titre', 'contenu',])
+
+        found_entries = Article.objects.filter(entry_query).order_by('date')
+
+    return render_to_response('search_results.html',
+                          { 'query_string': query_string, 'found_entries': found_entries },
+                          context_instance=RequestContext(request))
 
 
 def lire(request, id, slug):

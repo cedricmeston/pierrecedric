@@ -61,7 +61,17 @@
 
                 Viens voir ça! <a href="http://green-sheep.fr/">A voir avant de commencer</a>
                 parceque c'est drole <br> <br> <br>
-                Liste des services
+            <form method="get" action="/search/">
+
+
+<label for="id_q">Rechercher un service</label>
+           <input type="text" name="q" id="id_q"/>
+           <input type="submit" value="Rechercher!"/>
+
+
+        </form>
+        <br> <br> <br>
+               <p class="lead text-center"> Liste des services </p>
                     {%  for article in derniers_articles %}
                         <div class="article">
                          <h3>{{ article.titre }}</h3>
