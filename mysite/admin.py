@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Categorie, Article
+from models import Categorie, Article, Typedeprix, Reponse
 
 
 
@@ -10,16 +10,16 @@ class ArticleAdmin(admin.ModelAdmin):
     ordering = ('date',)
     search_fields = ('titre', 'contenu')
 
-    fieldsets = (
-       ('General', {
-            'classes': ['collapse', ],
-            'fields': ('titre', 'slug', 'auteur', 'categorie')
-        }),
-        ('Contenu de l\'article', {
-           'description': 'Le formulaire accepte les balises HTML. Utilisez les a bon escient !',
-           'fields': ('contenu', )
-        }),
-    )
+   # fieldsets = (
+   #    ('General', {
+   #         'classes': ['collapse', ],
+   #         'fields': ('titre', 'slug', 'auteur', 'categorie')
+   #     }),
+   #     ('Contenu de l\'article', {
+   #        'description': 'Le formulaire accepte les balises HTML. Utilisez les a bon escient !',
+   #        'fields': ('contenu', )
+   #     }),
+   # )
 
     def apercu_contenu(self, article):
 
@@ -32,4 +32,6 @@ class ArticleAdmin(admin.ModelAdmin):
     apercu_contenu.short_description = 'Apercu du contenu'
 
 admin.site.register(Categorie)
-admin.site.register(Article, ArticleAdmin)
+admin.site.register(Article)
+admin.site.register(Typedeprix)
+admin.site.register(Reponse)

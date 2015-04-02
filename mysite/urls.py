@@ -15,6 +15,7 @@ urlpatterns = patterns(
     url(r'^contact/$', 'contact'),
     url(r'^nouveau/$', 'nouveau'),
     url(r'^modifier/(?P<id>\d+)-(?P<slug>.+)$', 'modifier'),
+    url(r'^categorie/(?P<id>\d+)-(?P<slug>.+)$', 'categorie'),
 
 )
 

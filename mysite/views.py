@@ -16,6 +16,11 @@ def lire(request, id, slug):
     article = get_object_or_404(Article, id=id, slug=slug)
     return render(request, 'lire.html', {'article':article})
 
+def categorie(request, id, slug):
+    categorie1 = get_object_or_404(Categorie, id=id, slug=slug)
+    articles=  categorie1.article_set.all()
+    return render(request, 'categorie.html', {'categorie': categorie1, 'liste_articles': articles})
+
 
 def contact(request):
     if request.method == 'POST':

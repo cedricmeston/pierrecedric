@@ -22,25 +22,27 @@ class Article(models.Model):
     contenu=models.TextField(null=True)
     date= models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Date de parution")
     categorie=models.ForeignKey('Categorie')
-    prix=models.OneToOneField('Prix')
+    prix=models.FloatField()
+    typedeprix=models.ManyToManyField('Typedeprix')
 
     def __str__(self):
         return self.titre
 
-class Prix(models.Model):
-    type=models.ForeignKey('Type_de_prix')
-    valeur=models.FloatField()
 
-class Type_de_prix(models.Model):
+class Typedeprix(models.Model):
     nom=models.CharField(max_length=100)
+    def __str__(self):
+        return self.nom
 
 class Reponse(models.Model):
     article=models.ForeignKey('Article')
     acheteur=models.ForeignKey('Profil')
     prix_acheteur=models.FloatField()
-    type=models.ForeignKey('Type_de_prix')
+    type=models.ForeignKey('Typedeprix')
     commentaire=models.CharField(max_length=250)
     date=models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Date d'offre")
+    def __str__(self):
+        return self.article
 
 
 class Categorie(models.Model):
