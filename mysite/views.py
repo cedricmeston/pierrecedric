@@ -8,7 +8,8 @@ from django.contrib.auth.decorators import login_required
 
 def accueil(request):
     articles = Article.objects.all()
-    return render(request, 'accueil.html', {'derniers_articles' : articles})
+    categories = Categorie.objects.all()
+    return render(request, 'accueil.html', {'derniers_articles': articles, 'liste_categories': categories})
 
 
 def lire(request, id, slug):

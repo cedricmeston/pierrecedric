@@ -60,7 +60,8 @@
             <p class="lead text-center">
 
                 Viens voir ça! <a href="http://green-sheep.fr/">A voir avant de commencer</a>
-                parceque c'est drole
+                parceque c'est drole <br> <br> <br>
+                Liste des services
                     {%  for article in derniers_articles %}
                         <div class="article">
                          <h3>{{ article.titre }}</h3>
@@ -68,7 +69,15 @@
                         <p> <a href="{% url "views.lire" article.id article.slug %}">Lire la suite</a></p>
                          </div>
                     {% empty %}
-                    <p>Aucun article.</p>
+                    <p>Aucun service disponible.</p>
+                    {% endfor %}
+          <p class="lead text-center"><br> <br> <br> <br> Liste des catégories de services </p>
+             {%  for categorie in categoriess %}
+                        <div class="categorie">
+                         <h3>{{ categorie.nom }}</h3>
+                         </div>
+                    {% empty %}
+                    <p>Aucune categorie.</p>
                     {% endfor %}
 
             </p>
