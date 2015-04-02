@@ -1,0 +1,41 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}Projet Cedric & Pierre{% endblock %}
+
+{% block body_class %}home{% endblock %}
+
+{% block body_base %}
+    <section class="jumbotron">
+        <div class="container">
+            {% include "_messages.html" %}
+            <h1>{% blocktrans %}Bienvenue sur le Cedric&Pierre<br>big project!{% endblocktrans %}</h1>
+            <p>
+                {% blocktrans %}
+                Voici une première version du site. Uploader sur Github. Il faut bien sûr trouver des trucs à marquer ici.
+                {% endblocktrans %}
+            </p>
+            {% if not user.is_authenticated %}
+            {% url "account_login" as login_url %}
+            {% url "account_signup" as signup_url %}
+            <p>{% blocktrans %}Tu peux <a href="{{ login_url }}" class="btn btn-default">Log In</a> ou <a href="{{ signup_url }}" class="btn btn-primary">Sign Up</a> pour essayer le site.{% endblocktrans %}</p>
+            {% endif %}
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <h2 class="text-center">{% blocktrans %}Liste des services de la Catégorie {{ categorie.nom }}{% endblocktrans %}</h2>
+{%  for article in liste_articles %}
+                        <div class="article">
+                         <h3>{{ article.titre }}</h3>
+                        <p> {{ article.contenu|truncatewords_html:80 }}</p>
+                        <p> <a href="{% url "views.lire" article.id article.slug %}">Lire la suite</a></p>
+                         </div>
+                    {% empty %}
+                    <p>Aucun service disponible.</p>
+                    {% endfor %}
+        </div>
+
+    </section>
+{% endblock %}
