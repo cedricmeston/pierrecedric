@@ -72,9 +72,9 @@
                     <p>Aucun service disponible.</p>
                     {% endfor %}
           <p class="lead text-center"><br> <br> <br> <br> Liste des catégories de services </p>
-             {%  for categorie in categoriess %}
+             {%  for categorie in liste_categories %}
                         <div class="categorie">
-                         <p> <a href="{% url "views.categorie" categorie.id categorie.slug %}"> {{ categorie.nom }}</a></p>
+                         <p> <a href="{% url "views.categorie" categorie.id %}"> {{ categorie.nom }}</a></p>
                          </div>
                     {% empty %}
                     <p>Aucune categorie.</p>
