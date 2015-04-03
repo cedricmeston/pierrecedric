@@ -8,89 +8,65 @@
 
 {% block body_base %}
     <section class="jumbotron">
-        <div class="container">
+
             {% include "_messages.html" %}
-            <h1>{% blocktrans %}Bienvenue au Cedric&Pierre<br>big project!{% endblocktrans %}</h1>
+            <h1>{% blocktrans %}<center> Le service du particulier<br>au particulier </center>{% endblocktrans %}</h1> <br><br><br><br>
             <p>
                 {% blocktrans %}
-                Voici une première version du site. Uploader sur Github. Il faut bien sûr trouver des trucs à marquer ici.
+               <form method="get" action="/search/">
+                <p>Rechercher un service
+           <input type="text" name="q" id="id_q"/>
+           <input type="submit" value="Rechercher!"/> </p>
+        </form>
                 {% endblocktrans %}
             </p>
-            {% if not user.is_authenticated %}
-            {% url "account_login" as login_url %}
-            {% url "account_signup" as signup_url %}
-            <p>{% blocktrans %}Tu peux <a href="{{ login_url }}" class="btn btn-default">Log In</a> ou <a href="{{ signup_url }}" class="btn btn-primary">Sign Up</a> pour essayer le site.{% endblocktrans %}</p>
-            {% endif %}
         </div>
     </section>
     <section>
         <div class="container">
-            <h2 class="text-center">{% blocktrans %}Mais qu'est ce que c'est??{% endblocktrans %}</h2>
-            <p class="lead">
-                {% blocktrans %}
-                <b>Notre projet</b> permet à tout individu de proposer ses services. Chacun de nous est un génie en une matière, et cette plateforme a pour
-                    but de lui permettre de le mettre en avant. Coiffure, cours de musiques, courses, etc. Il permet egalement la réinsertion profesisonel
-                    dans le sens ou toute personne, meme n'ayant pas de travail, peut gagner de l'argent ici.
-                {% endblocktrans %}
-            </p>
+
             <div class="feature-columns">
                 <div>
                     <i class="fa fa-cubes fa-3x"></i><br>
                     {% blocktrans %}
-                    <b>Objectif personnel</b> Bon ça nous permet aussi de bien progresser en python mouhaha
+                   <h3> <b>Liste des catégories</b> </h3> <br> <br>
                     {% endblocktrans %}
+                {%  for categorie in liste_categories %}
+                        <div class="categorie">
+                         <p> <a href="{% url "views.categorie" categorie.id %}"> <b><h4>{{ categorie.nom }} </h4></b></a></p>
+                         </div>
+                    {% empty %}
+                    <p>Aucune categorie.</p>
+                    {% endfor %}
                 </div>
                 <div>
                     <i class="fa fa-puzzle-piece fa-3x"></i><br>
                     {% blocktrans %}
-                    <b>C'est cool, non?</b> Honnetement je ne sais pas quoi marquer ici...
+                    <h3> <b> Quelques services </b></h3><br> <br>
                     {% endblocktrans %}
-                </div>
-                <div>
-                    <i class="fa fa-tint fa-3x"></i><br>
-                    {% blocktrans %}
-                    <b>Hahaha</b> ici non plus d'ailleurs.
-                    {% endblocktrans %}
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container">
-            <p class="lead text-center">
-
-                Viens voir ça! <a href="http://green-sheep.fr/">A voir avant de commencer</a>
-                parceque c'est drole <br> <br> <br>
-            <form method="get" action="/search/">
-
-
-<label for="id_q">Rechercher un service</label>
-           <input type="text" name="q" id="id_q"/>
-           <input type="submit" value="Rechercher!"/>
-
-
-        </form>
-        <br> <br> <br>
-               <p class="lead text-center"> Liste des services </p>
-                    {%  for article in derniers_articles %}
+                                {%  for article in derniers_articles %}
                         <div class="article">
-                         <h3>{{ article.titre }}</h3>
+                         <h4>{{ article.titre }}</h4>
                         <p> {{ article.contenu|truncatewords_html:80 }}</p>
                         <p> <a href="{% url "views.lire" article.id article.slug %}">Lire la suite</a></p>
                          </div>
                     {% empty %}
                     <p>Aucun service disponible.</p>
                     {% endfor %}
-          <p class="lead text-center"><br> <br> <br> <br> Liste des catégories de services </p>
-             {%  for categorie in liste_categories %}
-                        <div class="categorie">
-                         <p> <a href="{% url "views.categorie" categorie.id %}"> {{ categorie.nom }}</a></p>
-                         </div>
-                    {% empty %}
-                    <p>Aucune categorie.</p>
-                    {% endfor %}
-
-            </p>
+                </div>
+                <div>
+                    <i class="fa fa-tint fa-3x"></i><br>
+                {% blocktrans %}
+                    <h3> <b>  </b></h3>
+                    {% endblocktrans %}
+                    {% if not user.is_authenticated %}
+            {% url "account_login" as login_url %}
+            {% url "account_signup" as signup_url %}
+            <p>{% blocktrans %} <h3><a href="{{ login_url }}" class="btn btn-default">Connexion</a> ou <a href="{{ signup_url }}" class="btn btn-primary">Inscription</a> si tu n'as pas encore de compte!</h3>{% endblocktrans %}</p>
+            {% endif %}
+                </div>
+            </div>
         </div>
     </section>
+
 {% endblock %}

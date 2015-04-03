@@ -7,27 +7,26 @@
 {% block body_class %}home{% endblock %}
 
 {% block body_base %}
-    <section class="jumbotron">
-        <div class="container">
+     <section class="jumbotron">
+
             {% include "_messages.html" %}
-            <h1>{% blocktrans %}Bienvenue sur le Cedric&Pierre<br>big project!{% endblocktrans %}</h1>
+            <h1>{% blocktrans %}<center> Le service du particulier<br>au particulier </center>{% endblocktrans %}</h1> <br><br><br><br>
             <p>
                 {% blocktrans %}
-                Voici une première version du site. Uploader sur Github. Il faut bien sûr trouver des trucs à marquer ici.
+               <form method="get" action="/search/">
+                <p>Rechercher un service
+           <input type="text" name="q" id="id_q"/>
+           <input type="submit" value="Rechercher!"/> </p>
+        </form>
                 {% endblocktrans %}
             </p>
-            {% if not user.is_authenticated %}
-            {% url "account_login" as login_url %}
-            {% url "account_signup" as signup_url %}
-            <p>{% blocktrans %}Tu peux <a href="{{ login_url }}" class="btn btn-default">Log In</a> ou <a href="{{ signup_url }}" class="btn btn-primary">Sign Up</a> pour essayer le site.{% endblocktrans %}</p>
-            {% endif %}
         </div>
     </section>
     <section>
         <div class="container">
-            <h2 class="text-center">{% blocktrans %}Nouvel Objet!{% endblocktrans %}</h2>
+            <h2 class="text-center">{% blocktrans %}Voulez-vous proposer un nouveau service?{% endblocktrans %}</h2>
             {% if envoi %}
-                 Votre  article a bien été posté !
+                 Votre  service a bien été posté !
             {% endif %}
 
             <form action="{% url "views.nouveau" %}" method="post">
