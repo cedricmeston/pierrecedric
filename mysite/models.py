@@ -17,13 +17,13 @@ class Profil(models.Model):
 
 class Article(models.Model):
     titre= models.CharField(max_length=100)
-    auteur= models.CharField(max_length=42)
+    auteur= models.ForeignKey(User)
     slug = models.SlugField(max_length=100)
     contenu=models.TextField(null=True)
     date= models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Date de parution")
     categorie=models.ForeignKey('Categorie')
     prix=models.FloatField()
-    typedeprix=models.ManyToManyField('Typedeprix')
+    typedeprix=models.ForeignKey('Typedeprix')
 
     def __str__(self):
         return self.titre

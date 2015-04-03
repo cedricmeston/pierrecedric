@@ -3,6 +3,7 @@ from models import Categorie, Article, Typedeprix, Reponse
 
 
 
+
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('titre', 'categorie', 'auteur', 'date')
     list_filter = ('auteur', 'categorie')
@@ -20,6 +21,12 @@ class ArticleAdmin(admin.ModelAdmin):
    #        'fields': ('contenu', )
    #     }),
    # )
+
+    def save_model(self, request, obj, form, change):
+        if not obj.author.id:
+            obj.author = request.user
+        obj.last_modified_by = request.user
+        obj.save()
 
     def apercu_contenu(self, article):
 

@@ -1,9 +1,21 @@
 from django import forms
-from models import Article
+from models import Article, User
 
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
+        exclude = ('auteur',)
+
+    def clean_author(self):
+        if not self.cleaned_data['auteur']:
+            return User()
+        return self.cleaned_data['auteur']
+
+    def clean_last_modified_by(self):
+        if not self.cleaned_data['last_modified_by']:
+            return User()
+        return self.cleaned_data['last_modified_by']
+
 
 
 
