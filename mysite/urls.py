@@ -14,9 +14,10 @@ urlpatterns = patterns(
     url(r'^article/(?P<id>\d+)-(?P<slug>.+)$', 'lire'),
     url(r'^contact/$', 'contact'),
     url(r'^nouveau/$', 'nouveau'),
-    url(r'^modifier/(?P<id>\d+)-(?P<slug>.+)$', 'modifier'),
+    url(r'^reponse/(?P<id>\d+)-(?P<slug>.+)$', 'reponse'),
     url(r'^categorie/(?P<id>\d+)$', 'categorie'),
     url(r"^search/$", 'search'),
+    url(r'^lire_reponses$', 'lire_reponses'),
 
 )
 

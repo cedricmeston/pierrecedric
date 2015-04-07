@@ -36,7 +36,7 @@ class Typedeprix(models.Model):
 
 class Reponse(models.Model):
     article=models.ForeignKey('Article')
-    acheteur=models.ForeignKey('Profil')
+    acheteur=models.ForeignKey(User)
     prix_acheteur=models.FloatField()
     type=models.ForeignKey('Typedeprix')
     commentaire=models.CharField(max_length=250)

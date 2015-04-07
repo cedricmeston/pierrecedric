@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, render_to_response, RequestContext
-from models import Article, Categorie
-from forms import ContactForm, ArticleForm, ConnexionForm
+from models import Article, Categorie, Reponse
+from forms import ContactForm, ArticleForm, ConnexionForm, ReponseForm
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
@@ -77,3 +77,21 @@ def modifier(request, id, slug):
 
      return render(request, 'modifier.html', locals() )
 
+@login_required()
+def reponse(request, id, slug):
+     article = get_object_or_404(Article, id=id, slug=slug)
+     form = ReponseForm(request.POST)
+     if form.is_valid():
+            form.save()
+            reponse = form.save()
+            reponse.save()
+            envoi= True
+     else:
+        form = ReponseForm()
+
+     return render(request, 'reponse.html', locals() )
+
+@login_required()
+def lire_reponses(request):
+    reponses=Reponse.objects.all()
+    return render(request, 'lire_reponses.html', {'reponses':reponses})

@@ -24,12 +24,16 @@
     </section>
     <section>
         <div class="container">
+            {% if envoi %}
+    Votre offre a bien été postée !
+{% endif %}
 
- <h1> {{ article.titre }} <span class="small"> dans {{ article.categorie.nom }} </span> </h1>
-<p class="infos"> Rédigé par {{ article.auteur }}, le {{ article.date|date:"DATE_FORMAT" }} </p>
-<div class="contenu"> {{ article.contenu|linebreaks }}</div>
-
-<p> <a href="{% url "views.reponse" article.id article.slug %}">Intéressé? Répondez à l'annonce!</a></p>
-
+<form action="{% url "views.reponse" article.id article.slug %}" method="post">
+    {%  csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Valider">
+</form>
+        </div>
     </section>
 {% endblock %}
+

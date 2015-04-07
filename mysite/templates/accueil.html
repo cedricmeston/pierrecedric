@@ -63,7 +63,9 @@
             {% url "account_login" as login_url %}
             {% url "account_signup" as signup_url %}
             <p>{% blocktrans %} <h3><a href="{{ login_url }}" class="btn btn-default">Connexion</a> ou <a href="{{ signup_url }}" class="btn btn-primary">Inscription</a> si tu n'as pas encore de compte!</h3>{% endblocktrans %}</p>
-            {% endif %}
+                    {% else %}
+             <a href="{% url "views.lire_reponses" %}"> <h3> <b> Les réponses à vos offres </b> </h3> </b>  </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
